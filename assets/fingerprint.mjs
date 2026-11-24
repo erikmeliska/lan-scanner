@@ -20,7 +20,7 @@ function get(ip, port, path, { timeout = 2500, maxBytes = 200_000 } = {}) {
         let buf = Buffer.concat(chunks);
         if (buf[0] === 0x1f && buf[1] === 0x8b) {
           try {
-            buf = zlib.gunzipSync(buf, { finishFlush: zlib.constants.Z_SYNC_FLUSH });
+            buf = zlib.gunzipSync(buf, { finishFlush: zlib.constants.Z_SYNC_FLUSH, maxOutputLength: maxBytes * 5 });
           } catch {}
         }
         resolve({ status: res.statusCode, headers: res.headers, body: buf.toString("utf8") });

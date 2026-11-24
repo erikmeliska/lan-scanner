@@ -63,6 +63,13 @@ type LaunchContext = { filter?: Filter; showDetail?: boolean; selected?: string 
 const LABELS: Record<string, string> = { ota: "OTA", rssi: "Wi-Fi RSSI", chipID: "Chip ID", leds: "LEDs" };
 const labelOf = (k: string) => LABELS[k] ?? k.charAt(0).toUpperCase() + k.slice(1);
 
+// text from devices on the network: strip markdown/HTML control characters before rendering
+const safe = (t: string | null | undefined) =>
+  (t ?? "")
+    .replace(/[\\`*_[\]()<>!#|~]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
 export default function Command(props: LaunchProps<{ launchContext?: LaunchContext }>) {
@@ -303,12 +310,12 @@ export default function Command(props: LaunchProps<{ launchContext?: LaunchConte
 function DeviceDetail({ d, name }: { d: Device; name: string }) {
   const ports = d.ports ?? [];
   const md = [
-    `### ${name}`,
+    `### ${safe(name)}`,
     ports.length
       ? ports
           .map((p) => {
-            const info = [p.product, p.extra, p.title].filter(Boolean).join(" · ");
-            return `- \`${p.port}/${p.proto}\` **${p.service ?? "unknown"}**${info ? ` — ${info}` : ""}`;
+            const info = [p.product, p.extra, p.title].map(safe).filter(Boolean).join(" · ");
+            return `- \`${p.port}/${p.proto}\` **${safe(p.service) || "unknown"}**${info ? ` — ${info}` : ""}`;
           })
           .join("\n")
       : d.portsScannedAt
