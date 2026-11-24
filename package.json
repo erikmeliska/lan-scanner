@@ -4,7 +4,7 @@
   "title": "LAN Scanner",
   "description": "Find every device on your local network, see open ports and what each one is (ESPHome, Tuya, Shelly, WLED…), and how long ago offline devices were last seen",
   "icon": "extension-icon.png",
-  "author": "erikmeliska",
+  "author": "erik_meliska",
   "license": "MIT",
   "categories": [
     "Developer Tools",
