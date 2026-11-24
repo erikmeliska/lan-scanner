@@ -8,11 +8,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 type ExtensionPreferences = {
-  /** Background scan - Turn off to stop the periodic background scan. Manual scans still work. */
+  /** Background Scan - Turn off to stop the periodic background scan. Manual scans still work. */
   "backgroundScan": boolean,
-  /** Auto-scan when older than (min) - Opening the list starts a new scan if the last one is older than this. 0 = never. */
+  /** Auto-Scan When Older Than (Min) - Opening the list starts a new scan if the last one is older than this. 0 = never. */
   "autoScanMinutes": string,
-  /** Re-scan ports after (hours) - Ports of a known device are re-scanned only when older than this. */
+  /** Re-Scan Ports After (Hours) - Ports of a known device are re-scanned only when older than this. */
   "portMaxAgeHours": string
 }
 
